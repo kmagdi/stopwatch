@@ -6,6 +6,7 @@ const initialState={
 }
 
 const reducer=(state,action)=>{
+//action obj. egy olyan obj, amely leírja,h hogyan lehet a state-t módosítani
     switch(action.type){
         case 'start':
             return {...state,isRunning: true}
@@ -23,7 +24,7 @@ export const TimeContext=createContext(initialState)
 
 export const TimeProvider=({children})=> {
     const [state,dispatch]=useReducer(reducer,initialState)
-
+//ahányszor a state-t szeretnék módosítani a dispatch fg.segítségével tudjuk, átadva neki az action obj.-t
     useEffect(()=>{
         if(!state.isRunning)
             return
@@ -32,18 +33,9 @@ export const TimeProvider=({children})=> {
             clearInterval(idRef)
         }
     },[state.isRunning])
-
-    function start(){
-        dispatch({type:'start'})
-    }
-    function stop(){
-        dispatch({type:'stop'})
-    }
-    function reset(){
-        dispatch({type:'reset'})
-    }
+    
      return (
-    <TimeContext.Provider value={{time:state.time,start,stop,reset}} >
+    <TimeContext.Provider value={[state,dispatch]} >
       {children}
     </TimeContext.Provider>
   )

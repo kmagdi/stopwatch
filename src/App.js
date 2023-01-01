@@ -11,7 +11,6 @@ const gradients = [
 ];
 
 function App() {
-  
   return (
     <TimeProvider>
       <div className="App border shadow">
@@ -24,7 +23,6 @@ function App() {
            <Watch/>
       </div>
     </TimeProvider>
-   
   );
 }
 
